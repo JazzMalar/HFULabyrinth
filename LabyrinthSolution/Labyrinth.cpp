@@ -2,6 +2,8 @@
 #include "Labyrinth.h"
 #include "ConcreteWall.h"
 #include <random>
+#include <time.h>
+
 
 CLabyrinth::CLabyrinth(int x, int y)
 {
@@ -17,6 +19,8 @@ CLabyrinth::~CLabyrinth()
 
 void CLabyrinth::Initialize()
 {
+	srand(time(NULL));
+
 	int colCounter = 1;
 	int rowCounter = 1;
 	int wallCounter = 0;
@@ -173,7 +177,7 @@ IWall & CLabyrinth::GetWall(int cell, Direction dir)
 	case Direction::Right:
 		return *((cells.at(cell)).GetWallRight());
 	case Direction::Bottom:
-		return *((cells.at(cell)).GetWallTop());
+		return *((cells.at(cell)).GetWallBottom());
 	default:
 		return *((cells.at(cell)).GetWallLeft());
 	}
@@ -184,13 +188,19 @@ void CLabyrinth::Build()
 	random_device rn;
 	mt19937 engine(rn());
 	uniform_int_distribution<int> dice(0, (cells.size() - 1));
+	// int startpoint = dice(engine);
 
-	int startpoint = dice(engine);
-	//    CCell& nextCell = cells.at(startpoint);
-	CCell& nextCell = cells.at(2);
+	int startpoint = 0 + (rand() % (int)(cells.size() - 1));
+
+	CCell& nextCell = cells.at(startpoint);
+	// CCell& nextCell = cells.at(2);
 
 	tryVisit(&nextCell, nullptr);
 	cout << "built" << endl;
+	CCell& lastCell = *(cells.end() - 1);
+
+	lastCell.GetWallBottom()->Destroy();
+
 }
 
 void CLabyrinth::tryVisit(CCell* cell, IWall* wall)
@@ -202,7 +212,7 @@ void CLabyrinth::tryVisit(CCell* cell, IWall* wall)
 
 	if (cell->IsVisited())
 	{
-		wall->Destroy();
+		// wall->Destroy();
 		return;
 	}
 
@@ -214,59 +224,52 @@ void CLabyrinth::tryVisit(CCell* cell, IWall* wall)
 		wall->Destroy();
 	}
 
+	deque<IWall*> adjWalls = { cell->GetWallRight(), cell->GetWallBottom(), cell->GetWallLeft(), cell->GetWallTop() };
 	CCell* nextCell;
-	IWall* nextWall = cell->GetWallLeft();
 
+	for (int j = 0; j < 4; j++)
+	{
+		deque<IWall*>::iterator randomIndex = select_randomly(adjWalls.begin(), adjWalls.end());
+		IWall* nextWall = *randomIndex;
+
+		if (!nextWall->IsDestroyed())
+		{
+			nextCell = nextWall->GetOtherNeighbour(cell);
+			tryVisit(nextCell, nextWall);
+		}
+
+		adjWalls.erase(randomIndex);
+	}
+
+	/*
 	if (!nextWall->IsDestroyed())
 	{
-		nextCell = nextWall->GetOtherNeighbour(cell);
-		tryVisit(nextCell, nextWall);
+	nextCell = nextWall->GetOtherNeighbour(cell);
+	tryVisit(nextCell, nextWall);
 	}
 
 	nextWall = cell->GetWallTop();
 
 	if (!nextWall->IsDestroyed())
 	{
-		nextCell = nextWall->GetOtherNeighbour(cell);
-		tryVisit(nextCell, nextWall);
+	nextCell = nextWall->GetOtherNeighbour(cell);
+	tryVisit(nextCell, nextWall);
 	}
 
 	nextWall = cell->GetWallRight();
 
 	if (!nextWall->IsDestroyed())
 	{
-		nextCell = nextWall->GetOtherNeighbour(cell);
-		tryVisit(nextCell, nextWall);
+	nextCell = nextWall->GetOtherNeighbour(cell);
+	tryVisit(nextCell, nextWall);
 	}
 
 	nextWall = cell->GetWallBottom();
 
 	if (!nextWall->IsDestroyed())
 	{
-		nextCell = nextWall->GetOtherNeighbour(cell);
-		tryVisit(nextCell, nextWall);
-	}
-
-
-
-
-
-	/*
-	deque<IWall*> adjWalls = { cell->GetWallRight(), cell->GetWallBottom(), cell->GetWallLeft(), cell->GetWallTop() };
-	CCell* nextCell;
-
-	for (int j = 0; j < 4; j++)
-	{
-	deque<IWall*>::iterator randomIndex = select_randomly(adjWalls.begin(), adjWalls.end());
-	IWall* nextWall = *randomIndex;
-
-	if(!nextWall->IsDestroyed())
-	{
 	nextCell = nextWall->GetOtherNeighbour(cell);
 	tryVisit(nextCell, nextWall);
-	}
-
-	adjWalls.erase(randomIndex);
 	}
 	*/
 
