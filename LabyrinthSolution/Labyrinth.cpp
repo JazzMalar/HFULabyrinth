@@ -55,7 +55,7 @@ void CLabyrinth::Initialize()
 		else
 		{
 			currentCell.SetWallTop(cells[i - (labWidth)].GetWallBottom());
-			cells[i - (labWidth - 1)].GetWallBottom()->SetNeighbour(cells.back());
+			cells[i - (labWidth)].GetWallBottom()->SetNeighbour(cells.back());
 		}
 
 		walls.back().SetNeighbour(cells.back());
@@ -187,7 +187,7 @@ void CLabyrinth::Build()
 
 	int startpoint = dice(engine);
 	//    CCell& nextCell = cells.at(startpoint);
-	CCell& nextCell = cells.at(14);
+	CCell& nextCell = cells.at(2);
 
 	tryVisit(&nextCell, nullptr);
 	cout << "built" << endl;
