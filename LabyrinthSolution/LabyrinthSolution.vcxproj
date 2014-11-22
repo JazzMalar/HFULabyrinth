@@ -83,6 +83,8 @@
     <ClInclude Include="ConcreteWall.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Gui.h" />
+    <ClInclude Include="ICharacter.h" />
+    <ClInclude Include="IItem.h" />
     <ClInclude Include="IWall.h" />
     <ClInclude Include="Labyrinth.h" />
     <ClInclude Include="LabyrinthController.h" />
@@ -93,6 +95,8 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="ConcreteWall.cpp" />
     <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="IItem.cpp" />
     <ClCompile Include="IWall.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="LabyrinthController.cpp" />
