@@ -88,6 +88,7 @@
     <ClInclude Include="IWall.h" />
     <ClInclude Include="Labyrinth.h" />
     <ClInclude Include="LabyrinthController.h" />
+    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -101,6 +102,7 @@
     <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="LabyrinthController.cpp" />
     <ClCompile Include="LabyrinthSolution.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
