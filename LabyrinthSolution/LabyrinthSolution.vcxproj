@@ -79,12 +79,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCharacterController.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="ConcreteWall.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IItem.h" />
+    <ClInclude Include="ItemHammer.h" />
     <ClInclude Include="IWall.h" />
     <ClInclude Include="Labyrinth.h" />
     <ClInclude Include="LabyrinthController.h" />
@@ -93,7 +95,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCharacterController.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CItemHammer.cpp" />
     <ClCompile Include="ConcreteWall.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="ICharacter.cpp" />

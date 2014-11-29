@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Labyrinth.h"
 #include "ConcreteWall.h"
 #include <random>
@@ -23,7 +22,7 @@ void CLabyrinth::Initialize()
 
 	int colCounter = 1;
 	int rowCounter = 1;
-	int wallCounter = 0;
+    int wallCounter = 0;
 
 	for (int i = 0; i < labWidth * labHeight; i++)
 	{
@@ -166,6 +165,17 @@ int CLabyrinth::GetHeight()
 	return labHeight;
 }
 
+int CLabyrinth::GetStartPoint()
+{
+    return startPoint;
+}
+
+int CLabyrinth::GetRandomCell()
+{
+    return 0 + (rand() % (int)(cells.size() - 1));
+}
+
+
 IWall & CLabyrinth::GetWall(int cell, Direction dir)
 {
 	switch (dir)
@@ -190,9 +200,9 @@ void CLabyrinth::Build()
 	uniform_int_distribution<int> dice(0, (cells.size() - 1));
 	// int startpoint = dice(engine);
 
-	int startpoint = 0 + (rand() % (int)(cells.size() - 1));
+    this->startPoint = 0 + (rand() % (int)(cells.size() - 1));
 
-	CCell& nextCell = cells.at(startpoint);
+    CCell& nextCell = cells.at(this->startPoint);
 	// CCell& nextCell = cells.at(2);
 
 	tryVisit(&nextCell, nullptr);

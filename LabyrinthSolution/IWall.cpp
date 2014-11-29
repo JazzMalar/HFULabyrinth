@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "IWall.h"
 
 IWall::IWall()

@@ -12,9 +12,8 @@ public:
 	bool IsWallDestroyed(int cell, Direction dir);
 	bool IsWallSeeThrough(int cell, Direction dir); 
 
-	void Print(); 
-
 	int GetFirstCell(); 
+    int GetRandomCell();
 	int GetLastCell(); 
 	int GetCell(int cell); 
     int GetCellCount();
@@ -24,6 +23,8 @@ public:
 
 	int GetNextCell(int cell, Direction dir); 
 	int GetNextCell(); 
+
+    int GetStartPoint();
 
 	~CLabyrinthController();
 

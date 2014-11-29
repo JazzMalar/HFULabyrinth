@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Cell.h"
 
 CCell::CCell(IWall& left, IWall& top, IWall& right, IWall& bottom)

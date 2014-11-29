@@ -22,6 +22,7 @@ private:
 	
 	int labWidth; 
 	int labHeight;
+    int startPoint;
 
 	deque<CCell> cells; 
 	deque<CConcreteWall> walls; 
@@ -62,6 +63,8 @@ public:
 	int GetLastCell(); 
 	int GetWidth(); 
 	int GetHeight(); 
+    int GetStartPoint();
+    int GetRandomCell();
 
 	friend ostream& operator<<(ostream& o, const CLabyrinth&);
 

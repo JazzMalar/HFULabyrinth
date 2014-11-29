@@ -1,11 +1,9 @@
-
-#include "stdafx.h"
 #include "LabyrinthController.h"
 
 
 CLabyrinthController::CLabyrinthController()
 {
-	m_pLab = new CLabyrinth(10, 10); 
+    m_pLab = new CLabyrinth(5, 4);
 	m_iCurrentCell = 0; 
 
     m_pLab->Initialize();
@@ -22,11 +20,6 @@ CLabyrinthController::CLabyrinthController(int width, int height)
     m_pLab->Build();
 }
 
-void CLabyrinthController::Print()
-{
-	m_pLab->Print();
-}
-
 bool CLabyrinthController::IsCellVisited(int cell)
 {
 	return m_pLab->GetCell(cell).IsVisited(); 
@@ -40,6 +33,11 @@ bool CLabyrinthController::IsWallDestroyed(int cell, Direction dir)
 bool CLabyrinthController::IsWallSeeThrough(int cell, Direction dir)
 {
 	return false;
+}
+
+int CLabyrinthController::GetRandomCell()
+{
+    return m_pLab->GetRandomCell();
 }
 
 int CLabyrinthController::GetCellCount()
@@ -60,6 +58,11 @@ int CLabyrinthController::GetWidth()
 int CLabyrinthController::GetHeight()
 {
     return m_pLab->GetHeight();
+}
+
+int CLabyrinthController::GetStartPoint()
+{
+    return m_pLab->GetStartPoint();
 }
 
 int CLabyrinthController::GetLastCell()

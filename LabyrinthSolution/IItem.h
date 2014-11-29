@@ -1,10 +1,16 @@
 #pragma once
+#ifndef __IITEM__H
+#define __IITEM__H
+
+class ICharacter;
+
 class IItem
 {
 
-private:
+protected:
 	int position; 
 	int uses; 
+    ICharacter* owner;
 
 public:
 	IItem();
@@ -15,3 +21,4 @@ public:
 
 };
 
+#endif

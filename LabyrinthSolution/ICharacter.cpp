@@ -1,13 +1,11 @@
-#include <stdafx.h>
 #include "ICharacter.h"
+#include "IItem.h"
+
 
 ICharacter::ICharacter()
 {
-
 }
 
 ICharacter::~ICharacter()
 {
-	delete itemInPosession; 
-	delete labyrinth;
 }
