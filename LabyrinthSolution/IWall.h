@@ -21,7 +21,7 @@ public:
 	virtual bool IsDestroyed() = 0; 
 	virtual void Destroy() = 0; 
 
-	~IWall();
+    virtual ~IWall();
 };
 
 #endif

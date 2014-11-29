@@ -15,14 +15,16 @@ CMainWindow::CMainWindow(QWidget *parent) :
 
     setFocusPolicy(Qt::StrongFocus);
 
-    CMainWindow::m_pLabController = new CLabyrinthController(20,20);
+    CMainWindow::m_pLabController = new CLabyrinthController(30,30);
     CMainWindow::m_pCharacterController = new CCharacterController();
 
-    m_pCharacterController->AddPlayer(this->m_pLabController, this->m_pLabController->GetRandomCell(), this->m_pCharacterController->GetCommandSet(), new QBrush(randomItemColor(), Qt::SolidPattern) );
+    m_pCharacterController->AddPlayer(this->m_pLabController, this->m_pLabController->GetRandomCell(), this->m_pCharacterController->GetKeySet(), new QBrush(randomItemColor(), Qt::SolidPattern) );
 }
 
 CMainWindow::~CMainWindow()
 {
+    delete m_pLabController;
+    delete m_pCharacterController;
     delete ui;
 }
 
@@ -31,56 +33,21 @@ void CMainWindow::keyPressEvent(QKeyEvent *k)
     cout << "Key Event" << endl;
     switch(k->key())
     {
-    case Qt::Key_D:
-        m_pCharacterController->MovePlayer(0, Direction::Right);
-        break;
-    case Qt::Key_A:
-        m_pCharacterController->MovePlayer(0, Direction::Left);
-        break;
-    case Qt::Key_S:
-        m_pCharacterController->MovePlayer(0, Direction::Bottom);
-        break;
-    case Qt::Key_W:
-        m_pCharacterController->MovePlayer(0, Direction::Top);
-        break;
-    case Qt::Key_Right:
-        m_pCharacterController->MovePlayer(1, Direction::Right);
-        break;
-    case Qt::Key_Left:
-        m_pCharacterController->MovePlayer(1, Direction::Left);
-        break;
-    case Qt::Key_Down:
-        m_pCharacterController->MovePlayer(1, Direction::Bottom);
-        break;
-    case Qt::Key_Up:
-        m_pCharacterController->MovePlayer(1, Direction::Top);
-        break;
-    case Qt::Key_L:
-        m_pCharacterController->MovePlayer(2, Direction::Right);
-        break;
-    case Qt::Key_J:
-        m_pCharacterController->MovePlayer(2, Direction::Left);
-        break;
-    case Qt::Key_K:
-        m_pCharacterController->MovePlayer(2, Direction::Bottom);
-        break;
-    case Qt::Key_I:
-        m_pCharacterController->MovePlayer(2, Direction::Top);
-        break;
     case Qt::Key_P:
         this->drawTraceLines = !this->drawTraceLines;
         m_pCharacterController->MessUp();
         break;
     case Qt::Key_B:
-        if(m_pCharacterController->GetCommandsLeft() > 0)
+        if(m_pCharacterController->GetKeySetsLeft() > 0)
         {
-            CCommandSet cmds = m_pCharacterController->GetCommandSet();
+            CKeySet cmds = m_pCharacterController->GetKeySet();
             m_pCharacterController->AddPlayer(this->m_pLabController, this->m_pLabController->GetRandomCell(), cmds, new QBrush(randomItemColor(), Qt::SolidPattern) );
             m_pCharacterController->MessUp();
         }
         break;
     default:
-        cout << "Default" << endl;
+        m_pCharacterController->HandleInput(k->key());
+        break;
     }
     if(m_pCharacterController->IsDirty())
     {
@@ -95,9 +62,9 @@ QColor CMainWindow::randomItemColor()
 
 void CMainWindow::paintEvent(QPaintEvent *event)
 {
-    int cellWidth = 20;
-    int cellHeight = 20;
-    int penWidth = 1;
+    int cellWidth = 30;
+    int cellHeight = 30;
+    int penWidth = 2;
 
     Qt::PenStyle style = Qt::PenStyle(1);
     Qt::PenCapStyle cap = Qt::PenCapStyle(1);
@@ -221,24 +188,36 @@ void CMainWindow::paintEvent(QPaintEvent *event)
 
             list<int> trace = *(m_pCharacterController->GetTraceLine(i));
 
+            /*
             int rowTmp = *(trace.begin()) / cellHeight;
             int row = rowTmp + 1;
             int colTmp = *(trace.begin()) - (rowTmp * cellWidth);
             int col = colTmp + 1;
+            */
 
-            QPoint first = QPoint((cellWidth*col) + (cellWidth/2),(cellHeight*row) + (cellHeight/2));
+            int rowTmp = *(trace.begin()) / m_pLabController->GetWidth();
+            int row = rowTmp + 1;
+            int colTmp = *(trace.begin()) - (rowTmp * m_pLabController->GetWidth());
+            int col = colTmp + 2;
+
+            QPoint first = QPoint((cellWidth*col) - (cellWidth/2),(cellHeight*row) + (cellHeight/2));
             QPoint second = first;
 
             for(std::list<int>::iterator it = trace.begin(); it != trace.end(); it++ )
             {
                 if(it == trace.begin()) continue;
 
+                /*
                 int rowTmp = *(it) / cellHeight;
                 int row = rowTmp + 1;
                 int colTmp = *(it) - (rowTmp * cellWidth);
                 int col = colTmp + 1;
-
-                second = QPoint((cellWidth*col) + (cellWidth/2),(cellHeight*row) + (cellHeight/2));
+                */
+                int rowTmp = *(it) / m_pLabController->GetWidth();
+                int row = rowTmp + 1;
+                int colTmp = *(it) - (rowTmp * m_pLabController->GetWidth());
+                int col = colTmp + 2;
+                second = QPoint((cellWidth*col) - (cellWidth/2),(cellHeight*row) + (cellHeight/2));
 
                 painter.drawLine(first, second);
 

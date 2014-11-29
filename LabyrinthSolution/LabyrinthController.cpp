@@ -102,4 +102,5 @@ int CLabyrinthController::GetNextCell()
 
 CLabyrinthController::~CLabyrinthController()
 {
+    delete m_pLab;
 }

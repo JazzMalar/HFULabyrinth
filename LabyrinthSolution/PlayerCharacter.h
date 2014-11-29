@@ -4,7 +4,7 @@
 
 #include "ICharacter.h"
 #include <QBrush>
-#include "CCommandSet.h"
+#include "CKeySet.h"
 
 class CPlayerCharacter :
 	public ICharacter
@@ -12,7 +12,7 @@ class CPlayerCharacter :
 
 public:
 CPlayerCharacter(CLabyrinthController * lab, int startPoint, Direction allowedDirection, QBrush* brush);
-CPlayerCharacter(CLabyrinthController* lab, int startPoint, CCommandSet commands, Direction allowedDir, QBrush* b);
+CPlayerCharacter(CLabyrinthController* lab, int startPoint, CKeySet commands, Direction allowedDir, QBrush* b);
 ~CPlayerCharacter();
 
 // Inherited via ICharacter
@@ -24,8 +24,10 @@ virtual list<int>* GetTraceLine() override;
 virtual list<int>::iterator GetFirstTracePoint() override;
 virtual list<int>::iterator GetLastTracePoint() override;
 
+CKeySet* GetKeySet();
+
 private:
-CCommandSet commandSet;
+	CKeySet keySet;
 
 };
 

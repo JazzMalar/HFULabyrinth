@@ -6,8 +6,9 @@
 #include <QBrush>
 #include <list>
 #include <stack>
-#include <CCommandSet.h>
 
+class CKeySet;
+class CharacterCommand;
 class CLabyrinthController;
 class CPlayerCharacter;
 
@@ -16,7 +17,7 @@ class CCharacterController
 private:
 
     std::deque<CPlayerCharacter> characters;
-    std::stack<CCommandSet> commandSets;
+    std::stack<CKeySet> keySets;
 
     bool dirty;
 
@@ -26,16 +27,16 @@ public:
     bool IsDirty();
     int GetCurrentPosition(int characterIndex);
     int GetPlayerCount();
-    int GetCommandsLeft();
+    int GetKeySetsLeft();
     void MessUp();
     void MovePlayer(int characterIndex, Direction dir);
     void AddPlayer(CLabyrinthController* lab);
     void AddPlayer(CLabyrinthController* lab, int startPoint, QBrush* brush);
-    void AddPlayer(CLabyrinthController* lab, int startPoint, CCommandSet cmds,  QBrush* brush);
-    CCommandSet GetCommandSet();
+    void AddPlayer(CLabyrinthController* lab, int startPoint, CKeySet cmds,  QBrush* brush);
+    CKeySet GetKeySet();
     std::list<int>* GetTraceLine(int characterIndex);
     QBrush* GetBrushOfPlayer(int characterIndex);
-
+    void HandleInput(int key);
 
 };
 

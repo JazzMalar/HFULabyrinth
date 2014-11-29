@@ -22,6 +22,7 @@ CCell::CCell(int index)
 
 CCell::~CCell()
 {
+
 }
 
 int CCell::GetIndex()

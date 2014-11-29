@@ -9,10 +9,10 @@ CPlayerCharacter::CPlayerCharacter(CLabyrinthController* lab, int startPoint, Di
     this->brush = brush;
 }
 
-CPlayerCharacter::CPlayerCharacter(CLabyrinthController* lab, int startPoint, CCommandSet cmds, Direction allowedDirection, QBrush* brush)
+CPlayerCharacter::CPlayerCharacter(CLabyrinthController* lab, int startPoint, CKeySet cmds, Direction allowedDirection, QBrush* brush)
 {
     this->allowedDirection = allowedDirection;
-    this->commandSet = cmds;
+    this->keySet = cmds;
     this->labyrinth = lab;
     this->position = startPoint;
     this->brush = brush;
@@ -22,11 +22,16 @@ CPlayerCharacter::~CPlayerCharacter()
 {
 }
 
+CKeySet* CPlayerCharacter::GetKeySet()
+{
+	return &this->keySet; 
+}
+
 bool CPlayerCharacter::Move(Direction dir)
 {
     bool changed = false;
 
-	if (this->allowedDirection != Direction::All && dir != this->allowedDirection)
+    if (this->allowedDirection != Direction::All && dir != this->allowedDirection)
 	{
         return changed;
 	}

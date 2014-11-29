@@ -3,6 +3,6 @@ enum Direction {
 	Left,
 	Top,
 	Right,
-	Bottom,
-	All
+    Bottom,
+    All
 };

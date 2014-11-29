@@ -5,22 +5,22 @@ CCharacterController::CCharacterController()
 {
     dirty = false;
 
-    commandSets.push( CCommandSet(Qt::Key_W, Qt::Key_S, Qt::Key_A, Qt::Key_D));
-    commandSets.push( CCommandSet(Qt::Key_Up, Qt::Key_Down, Qt::Key_Left, Qt::Key_Right));
-    commandSets.push( CCommandSet(Qt::Key_I, Qt::Key_K, Qt::Key_J, Qt::Key_L));
-    commandSets.push( CCommandSet(Qt::Key_T, Qt::Key_G, Qt::Key_F, Qt::Key_H));
+    keySets.push( CKeySet(Qt::Key_T, Qt::Key_G, Qt::Key_F, Qt::Key_H));
+    keySets.push( CKeySet(Qt::Key_I, Qt::Key_K, Qt::Key_J, Qt::Key_L));
+    keySets.push( CKeySet(Qt::Key_Up, Qt::Key_Down, Qt::Key_Left, Qt::Key_Right));
+    keySets.push( CKeySet(Qt::Key_W, Qt::Key_S, Qt::Key_A, Qt::Key_D));
 }
 
-CCommandSet CCharacterController::GetCommandSet()
+CKeySet CCharacterController::GetKeySet()
 {
-    CCommandSet retVal = commandSets.top();
-    commandSets.pop();
+    CKeySet retVal = keySets.top();
+    keySets.pop();
     return retVal;
 }
 
-int CCharacterController::GetCommandsLeft()
+int CCharacterController::GetKeySetsLeft()
 {
-    return commandSets.size();
+    return keySets.size();
 }
 
 int CCharacterController::GetCurrentPosition(int characterIndex)
@@ -54,9 +54,21 @@ void CCharacterController::AddPlayer(CLabyrinthController* lab, int startPoint, 
    characters.push_back(CPlayerCharacter(lab, startPoint, Direction::All, brush));
 }
 
-void CCharacterController::AddPlayer(CLabyrinthController* lab, int startPoint, CCommandSet cmds, QBrush* brush)
+void CCharacterController::AddPlayer(CLabyrinthController* lab, int startPoint, CKeySet cmds, QBrush* brush)
 {
    characters.push_back(CPlayerCharacter(lab, startPoint, cmds, Direction::All, brush));
+}
+
+void CCharacterController::HandleInput(int key)
+{
+    for (int i = 0; i < characters.size(); i++)
+	{
+        CCharacterCommand* cmd = characters.at(i).GetKeySet()->Handle(key);
+        if(cmd != nullptr)
+        {
+            cmd->execute(*this, i);
+        }
+	}
 }
 
 QBrush* CCharacterController::GetBrushOfPlayer(int characterIndex)

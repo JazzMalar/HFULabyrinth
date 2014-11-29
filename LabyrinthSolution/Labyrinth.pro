@@ -26,7 +26,12 @@ SOURCES += main.cpp\
     PlayerCharacter.cpp \
     CItemHammer.cpp \
     CCharacterController.cpp \
-    CCommandSet.cpp
+    CKeySet.cpp \
+    CommandRight.cpp \
+    CommandLeft.cpp \
+    CommandDown.cpp \
+    CommandUp.cpp \
+    CharacterCommand.cpp
 
 HEADERS  += cmainwindow.h \
     Cell.h \
@@ -40,6 +45,11 @@ HEADERS  += cmainwindow.h \
     ICharacter.h \
     ItemHammer.h \
     CCharacterController.h \
-    CCommandSet.h
+    CKeySet.h \
+    CommandRight.h \
+    CommandLeft.h \
+    CommandDown.h \
+    CommandUp.h \
+    CharacterCommand.h
 
 FORMS    += cmainwindow.ui

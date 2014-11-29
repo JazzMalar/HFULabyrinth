@@ -251,36 +251,4 @@ void CLabyrinth::tryVisit(CCell* cell, IWall* wall)
 		adjWalls.erase(randomIndex);
 	}
 
-	/*
-	if (!nextWall->IsDestroyed())
-	{
-	nextCell = nextWall->GetOtherNeighbour(cell);
-	tryVisit(nextCell, nextWall);
-	}
-
-	nextWall = cell->GetWallTop();
-
-	if (!nextWall->IsDestroyed())
-	{
-	nextCell = nextWall->GetOtherNeighbour(cell);
-	tryVisit(nextCell, nextWall);
-	}
-
-	nextWall = cell->GetWallRight();
-
-	if (!nextWall->IsDestroyed())
-	{
-	nextCell = nextWall->GetOtherNeighbour(cell);
-	tryVisit(nextCell, nextWall);
-	}
-
-	nextWall = cell->GetWallBottom();
-
-	if (!nextWall->IsDestroyed())
-	{
-	nextCell = nextWall->GetOtherNeighbour(cell);
-	tryVisit(nextCell, nextWall);
-	}
-	*/
-
 }
